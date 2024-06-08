@@ -1,0 +1,230 @@
+/* src/pages/Home/Home.css */
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* HomeProjects*/
+
+.background-image {
+  background-image: url('../../public/images/LA_proyects.png'); /* Ruta a tu imagen de fondo */
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* Homecategories*/
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* HomeCategory*/
+
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* HomeFeatured*/
+
+
+/* Contenedor principal de la sección */
+.home-featured-container {
+  grid-template-columns: 1fr 1fr;
+  gap: 5%;
+  height: 100%; /* Asegura que el contenedor ocupe toda la altura disponible */
+  align-items: stretch; /* Asegura que los elementos hijos se estiren para ocupar el mismo tamaño */
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+/* Sección destacada grande */
+.home-featured-big {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  height: 100%; /* Asegura que el elemento ocupe toda la altura disponible */
+}
+
+.home-featured-big:hover {
+  transform: translateY(-5px);
+}
+
+.featured-big-image-container {
+  flex: 2;
+  width: 100%;
+  overflow: hidden;
+}
+
+.featured-big-image-container img {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: auto;
+  max-height: 450px; /* Ajusta la altura máxima según sea necesario */
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor manteniendo la relación de aspecto */
+}
+
+.featured-big-content {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Lista de elementos destacados más pequeños */
+.home-featured-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  height: 100%; /* Asegura que el elemento ocupe toda la altura disponible */
+}
+
+.featured-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  flex: 1; /* Asegura que los elementos ocupen toda la altura disponible */
+}
+
+.featured-item:hover {
+  transform: translateY(-5px);
+}
+
+.featured-image-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.featured-image-container img {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: auto;
+  max-height: 250px; /* Ajusta la altura máxima según sea necesario */
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor manteniendo la relación de aspecto */
+}
+
+.featured-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.featured-title {
+  font-size: 1.5rem;
+}
+
+.featured-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .home-featured-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .home-featured-big {
+    height: auto; /* Ajusta la altura automáticamente en pantallas pequeñas */
+  }
+
+  .home-featured-list {
+    height: auto; /* Ajusta la altura automáticamente en pantallas pequeñas */
+  }
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* HomeInfo*/
+
+/* Sección principal */
+.home-info {
+  padding: 20px;
+  background-color: #f9f9f9; /* Color de fondo gris claro */
+  margin-top: 40px; /* Espacio para separar del contenido anterior */
+}
+
+.home-info h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #333;
+}
+
+/* Lista de elementos destacados más pequeños */
+.home-info-list {
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+  height: 100%; /* Asegura que el elemento ocupe toda la altura disponible */
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  flex: 1; /* Asegura que los elementos ocupen toda la altura disponible */
+}
+
+.info-item:hover {
+  transform: translateY(-5px);
+}
+
+.info-image-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-image-container img {
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  height: auto;
+  max-height: 250px; /* Ajusta la altura máxima según sea necesario */
+  object-fit: cover; /* Asegura que la imagen cubra todo el contenedor manteniendo la relación de aspecto */
+}
+
+.info-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-title {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.info-description {
+  font-size: 1rem;
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .home-info-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .home-info-big {
+    height: auto; /* Ajusta la altura automáticamente en pantallas pequeñas */
+  }
+
+  .home-info-list {
+    height: auto; /* Ajusta la altura automáticamente en pantallas pequeñas */
+  }
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
