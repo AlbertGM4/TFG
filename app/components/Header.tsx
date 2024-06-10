@@ -1,4 +1,7 @@
 // src/components/header.jsx
+
+"use client";
+import { useState } from 'react';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -11,6 +14,18 @@ import './Components.css';
 
 
 const Header = () => {
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // Cambia según tu lógica de autenticación
+    const [showAuthPopup, setShowAuthPopup] = useState(false);
+
+    const handleProfileClick = () => {
+        if (!isLoggedIn) {
+            setShowAuthPopup(true);
+        } else {
+            // Navega al perfil
+        }
+    };
+
     return (
         <header id='header' className="flex items-center justify-between bg-white p-5">
 
@@ -29,7 +44,7 @@ const Header = () => {
                         <li className='mx-4'><Image src={cartGif} alt="Cart" className="w-7 h-7" /></li>
                     </Link>
                     <Link href="/profile">
-                        <li className='mx-4'><Image src={profileGif} alt="Profile" className="w-7 h-7" /></li>
+                        <li className='mx-4' onClick={handleProfileClick}><Image src={profileGif} alt="9" className="w-7 h-7" /></li>
                     </Link>
                 </ul>
             </div>
