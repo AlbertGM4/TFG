@@ -139,6 +139,7 @@ const useOrder = ({ redirect }: UseProps) => {
             return allOrderData;
         } catch (error) {
             console.error('Error fetching orders:', error);
+            throw error;
         }
     }
 
