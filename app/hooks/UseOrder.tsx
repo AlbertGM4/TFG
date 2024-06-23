@@ -42,13 +42,14 @@ const useOrder = ({ redirect }: UseProps) => {
             const decodedToken: any = jwtDecode(token);
 
             const newOrder: Order = {
-                Created: new Date(),
-                Subtotal: totals.subtotal,
-                Total: totals.total,
-                Status: 'Pendiente',
-                CustomerID: 0,
-                PromotionID: 1,
-                OrderLines: []
+                orderID: 0,
+                created: new Date(),
+                subtotal: totals.subtotal,
+                total: totals.total,
+                status: 'Pendiente',
+                customerID: 0,
+                promotionID: 1,
+                orderLines: []
             };
 
             const orderResponse = await addOrder((decodedToken["unique_name"]), newOrder);
@@ -59,13 +60,13 @@ const useOrder = ({ redirect }: UseProps) => {
             }
 
             const orderLines: OrderLine[] = cartItems.map(item => ({
-                Qty: item.quantity,
-                Tax: 0,
-                Discount: 0,
-                SubTotal: item.productPrice * item.quantity,
-                Total: (item.productPrice * item.quantity) + (0) - (0), // Total = SubTotal + Tax - Discount
-                OrderID: orderResponse.data,
-                ProductID: item.productId
+                qty: item.quantity,
+                tax: 0,
+                discount: 0,
+                subTotal: item.productPrice * item.quantity,
+                total: (item.productPrice * item.quantity) + (0) - (0), // Total = SubTotal + Tax - Discount
+                orderID: orderResponse.data,
+                productID: item.productId
             }));
 
             const orderLinesResponse = await addOrderLines(orderLines)
@@ -102,7 +103,7 @@ const useOrder = ({ redirect }: UseProps) => {
 
             // Preparar un mapa para almacenar las líneas de órdenes agrupadas por OrderID
             const orderLinesMap: Map<number, OrderLine[]> = new Map();
-            const productMap: Map<number, Product[]> = new Map();
+            const productMap: Map<number, Product> = new Map();
 
             // Llenar el mapa con las líneas de órdenes agrupadas por OrderID
             await Promise.all(fetchedOrderLines.map(async (orderLine) => {
@@ -113,7 +114,7 @@ const useOrder = ({ redirect }: UseProps) => {
                 orderLinesMap.get(orderLine.orderID)?.push(orderLine);
 
                 // Buscar y agregar el producto al mapa productMap si aún no está presente
-                if (!productMap.has(orderLine.ProductID)) {
+                if (!productMap.has(orderLine.productID)) {
                     const product = await fetchProduct(orderLine.productID);
                     productMap.set(orderLine.productID, product);
                 }
@@ -122,16 +123,16 @@ const useOrder = ({ redirect }: UseProps) => {
 
             // Mapear fetchedOrders y construir AllOrderData
             const allOrderData: AllOrderData[] = fetchedOrders.map(order => ({
-                OrderID: order.orderID,
-                OrderStatus: order.status,
-                SubTotal: order.subtotal,
-                Total: order.total,
-                OrderLines: (orderLinesMap.get(order.orderID) || []).map(
+                orderID: order.orderID,
+                orderStatus: order.status,
+                subTotal: order.subtotal,
+                total: order.total,
+                orderLines: (orderLinesMap.get(order.orderID) || []).map(
                     orderLine => ({
-                        ProductName: productMap.get(orderLine.productID)?.productName || 'Producto no encontrado',
-                        ProductQty: orderLine.Qty,
-                        ProductPrice: productMap.get(orderLine.productID)?.productPrice,
-                        SubTotal: orderLine.SubTotal
+                        productName: productMap.get(orderLine.productID).productName,
+                        productQty: orderLine.qty,
+                        productPrice: productMap.get(orderLine.productID).productPrice,
+                        subTotal: orderLine.subTotal
                     }))
             }));
             console.log("allOrderData: ", allOrderData)

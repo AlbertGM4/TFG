@@ -109,7 +109,7 @@ export const searchProduct = async (productName: string): Promise<Product> => {
         return response.data;
     } catch (error) {
         console.error('Error fetching products', error);
-        return error.response.status;
+        throw error;
     }
 };
 
@@ -224,7 +224,7 @@ export const addOrder = async (customerName: string, orderData: Order) => {
     try {
         const userResponse = await api.get('/User/getUser', { headers: { Authorization: `${customerName}` } })
 
-        orderData.CustomerID = userResponse.data.userID
+        orderData.customerID = userResponse.data.userID
 
         const orderResponse = await api.post('/Order/addOrder', orderData);
 

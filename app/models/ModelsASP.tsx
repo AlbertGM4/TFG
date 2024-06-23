@@ -38,6 +38,7 @@ export interface CartContextType {
 }
 
 export interface Category {
+    categoryID: number;
     categoryId: number;
     categoryName: string;
     categoryDescription: string;
@@ -51,10 +52,11 @@ export interface Product {
     productPrice: number;
     productImagesRoute: string;
     productStock: number;
-    CategoryID: number;
+    categoryID: number;
 }
 
 export interface User {
+    userID: number;
     profileImageRoute: string;
     userName: string;
     userEmail: string;
@@ -67,36 +69,37 @@ export interface User {
 }
 
 export interface Order {
-    Created: Date;
-    Subtotal: number;
-    Total: number;
-    Status: string;
-    CustomerID: number;
-    PromotionID: number;
-    OrderLines: OrderLine[];
+    orderID: any;
+    created: Date;
+    subtotal: number;
+    total: number;
+    status: string;
+    customerID: number;
+    promotionID: number;
+    orderLines: OrderLine[];
 }
 
 export interface OrderLine {
-    Qty: number;
-    Tax: number;
-    Discount: number;
-    SubTotal: number;
-    Total: number;
-    OrderID: number;
-    ProductID: number;
+    qty: number;
+    tax: number;
+    discount: number;
+    subTotal: number;
+    total: number;
+    orderID: number;
+    productID: number;
 }
 
 export interface AllOrderData {
-    OrderID: number;
-    OrderStatus: string;
-    OrderLines: AllOrderLineData[];
-    SubTotal: number;
-    Total: number;
+    orderID: number;
+    orderStatus: string;
+    orderLines: AllOrderLineData[];
+    subTotal: number;
+    total: number;
 }
 
 export interface AllOrderLineData {
-    ProductName: string;
-    ProductQty: number;
-    ProductPrice: number;
-    SubTotal: number;
+    productName: string;
+    productQty: number;
+    productPrice: number;
+    subTotal: number;
 }

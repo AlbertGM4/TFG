@@ -37,14 +37,14 @@ const AllOrdersPage = () => {
                         >
                             <div className="flex items-center space-x-2 mb-2">
                                 <Image src={LA_billing_address} className="w-7 h-7" alt="Billing Icon" />
-                                <p className="text-gray-700">Pedido #{order.OrderID} - {order.OrderStatus}</p>
+                                <p className="text-gray-700">Pedido #{order.orderID} - {order.orderStatus}</p>
                             </div>
                             <div className="">
-                                {order.OrderLines.map((orderLine, idx: number) => {
+                                {order.orderLines.map((orderLine, idx: number) => {
                                     return (
                                         <div key={idx} className="flex justify-between mb-1">
-                                            <span>{orderLine.ProductName} (x{orderLine.ProductQty})</span>
-                                            <span className="flex-grow text-right min-w-16">{orderLine.ProductPrice} €</span>
+                                            <span>{orderLine.productName} (x{orderLine.productQty})</span>
+                                            <span className="flex-grow text-right min-w-16">{orderLine.productPrice} €</span>
                                         </div>
                                     );
                                 })}
@@ -52,8 +52,8 @@ const AllOrdersPage = () => {
                             <div className="mt-auto w-full">
                                 <hr className="border-t-2 border-gray-300 my-4" />
                                 <div className="self-end mt-auto">
-                                    <p>Subtotal: {order.SubTotal} €</p>
-                                    <p>Total: {order.Total} €</p>
+                                    <p>Subtotal: {order.subTotal} €</p>
+                                    <p>Total: {order.total} €</p>
                                 </div>
                             </div>
                         </div>
