@@ -77,7 +77,7 @@ const Header = () => {
         }
     };
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: { key: string; }) => {
         if (event.key === 'Enter') {
             handleSearch();
         }
