@@ -24,7 +24,7 @@ const useUserProfile = ({ redirect }: UseProps) => {
         phone: '',
         aCoins: 0,
         orders: [],
-        payment: {},
+        payment: card,
     });
 
     const [originalUser, setOriginalUser] = useState<User>(user);
@@ -75,11 +75,12 @@ const useUserProfile = ({ redirect }: UseProps) => {
                     billingAddress: responseUser.billingAddress ?? '',
                     phone: responseUser.phone ?? '',
                     aCoins: responseUser.aCoins ?? 0,
+                    orders: orderResponse,
                 }));
                 // Guardar el usuario original
                 setOriginalUser({
                     ...responseUser,
-                    payment: {} // Aquí deberías ajustar según el modelo de payment que tengas
+                    payment: card // Aquí deberías ajustar según el modelo de payment que tengas
                 });
             } catch (error) {
                 console.error('Error fetching user data: ', error);
