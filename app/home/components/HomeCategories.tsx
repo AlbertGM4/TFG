@@ -44,7 +44,7 @@ const Categories = () => {
             <div className="flex justify-center">
                 <div className="flex flex-wrap w-full justify-around gap-8 max-w-screen-xl p-4">
                     {categories.map((category) => (
-                        <div className="category-card relative p-4 border border-solid rounded-lg shadow-xl flex flex-col items-center overflow-hidden bg-slate-100 transition-transform hover:bg-white hover:translate-y-2.5 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer" >
+                        <div key={category.categoryId} className="category-card relative p-4 border border-solid rounded-lg shadow-xl flex flex-col items-center overflow-hidden bg-slate-100 transition-transform hover:bg-white hover:translate-y-2.5 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 cursor-pointer" >
                             <Link href={`/category/${encodeURIComponent(category.categoryName)}`}>
                                 <div className="category-image relative w-full h-48 flex items-center justify-center overflow-hidden mb-4">
                                     <Image
