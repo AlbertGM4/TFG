@@ -5,19 +5,26 @@
 import Image from 'next/image';
 import useOrder from '@/app/hooks/UseOrder';
 import { useState } from 'react';
+import SignInForm from '../profile/components/SignInProfile';
 
 
 const CartPage = () => {
     const [showCheckoutPopup, setCheckoutPopup] = useState(false);
+    const [showLoginPopup, setShowLoginPopup] = useState(false); // Estado para controlar el popup de login
     const { cartItems, totals, isMounted, message, handleMessage, handlePlaceOrder } = useOrder({
         redirect: (url: string) => {
             window.location.href = url; // Redirige usando el navegador
-        }
+        },
+        onLoginRequired: () => setShowLoginPopup(true) // Mostrar el popup de login si es necesario
     });
 
     const handleClosePopup = () => {
         setCheckoutPopup(false);
         handleMessage();
+    };
+
+    const handleCloseLoginPopup = () => {
+        setShowLoginPopup(false);
     };
 
     if (!isMounted) {
@@ -73,6 +80,13 @@ const CartPage = () => {
                         <div className='flex flex-col items-center justify-center'>
                             <div className='text-green-500 mb-4'>{message}</div>
                         </div>
+                    </div>
+                </div>
+            }
+            {showLoginPopup &&
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50 z-50" onClick={handleCloseLoginPopup}>
+                    <div className="bg-white p-8 rounded-lg" onClick={(e) => e.stopPropagation()}>
+                        <SignInForm toggleForm={handleCloseLoginPopup} />
                     </div>
                 </div>
             }

@@ -7,8 +7,8 @@ import { AllOrderData, Order, OrderLine, Product, UseProps } from '@/app/models/
 import { useAuth } from '@/app/context/AuthContext';
 import { jwtDecode } from 'jwt-decode';
 
-const useOrder = ({ redirect }: UseProps) => {
-    const { cookies } = useAuth();
+const useOrder = ({ redirect, onLoginRequired }: UseProps) => {
+    const { cookies, isLoggedIn } = useAuth();
     const [message, setMessage] = useState('');
     const { cartItems, clearCart } = useCart();
     const [totals, setTotals] = useState({ subtotal: 0.00, total: 0.00 });
@@ -36,7 +36,10 @@ const useOrder = ({ redirect }: UseProps) => {
     }
 
     const handlePlaceOrder = async () => {
-
+        if (!isLoggedIn) {
+            if (onLoginRequired) onLoginRequired();
+            return;
+        }
         try {
             const token = cookies.get('token');
             const decodedToken: any = jwtDecode(token);

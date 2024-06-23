@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { Cookie } from "universal-cookie";
 
+
 export interface RootLayoutProps {
     children: React.ReactNode;
 }
@@ -13,6 +14,7 @@ export interface ProviderProps {
 
 export interface UseProps {
     redirect: (url: string) => void;
+    onLoginRequired?: () => void;
 }
 
 export interface AuthContextType {
