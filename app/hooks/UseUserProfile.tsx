@@ -15,6 +15,7 @@ const useUserProfile = ({ redirect }: UseProps) => {
 
     const { cookies } = useAuth(); // Obtén el usuario del contexto de autenticación
     const [user, setUser] = useState<User>({
+        userID: 0,
         profileImageRoute: '',
         userName: '',
         userEmail: '',
@@ -65,27 +66,20 @@ const useUserProfile = ({ redirect }: UseProps) => {
                     order => order.customerID === responseUser.userID
                 );
 
-                setUser({
-                    profileImageRoute: responseUser.profileImageRoute || '', // Asegúrate de tener definida esta variable correctamente en tu código
-                    userName: responseUser.userName || '',
-                    userEmail: responseUser.userEmail || '',
-                    address: responseUser.address || '',
-                    billingAddress: responseUser.billingAddress || '',
-                    phone: responseUser.phone || '',
-                    aCoins: responseUser.aCoins || 0,
-                    orders: orderResponse || [],
-                    payment: card,
-                });
+                setUser(prevUser => ({
+                    ...prevUser,
+                    profileImageRoute: responseUser.profileImageRoute ?? '',
+                    userName: responseUser.userName ?? '',
+                    userEmail: responseUser.userEmail ?? '',
+                    address: responseUser.address ?? '',
+                    billingAddress: responseUser.billingAddress ?? '',
+                    phone: responseUser.phone ?? '',
+                    aCoins: responseUser.aCoins ?? 0,
+                }));
+                // Guardar el usuario original
                 setOriginalUser({
-                    profileImageRoute: responseUser.profileImageRoute || '',
-                    userName: responseUser.userName || '',
-                    userEmail: responseUser.userEmail || '',
-                    address: responseUser.address || '',
-                    billingAddress: responseUser.billingAddress || '',
-                    phone: responseUser.phone || '',
-                    aCoins: responseUser.aCoins || 0,
-                    orders: orderResponse || [],
-                    payment: card,
+                    ...responseUser,
+                    payment: {} // Aquí deberías ajustar según el modelo de payment que tengas
                 });
             } catch (error) {
                 console.error('Error fetching user data: ', error);

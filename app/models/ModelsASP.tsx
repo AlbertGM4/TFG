@@ -65,7 +65,7 @@ export interface User {
     phone?: string;
     aCoins: number;
     orders?: any[];
-    payment?: { number?: string };
+    payment?: any;
 }
 
 export interface Order {
