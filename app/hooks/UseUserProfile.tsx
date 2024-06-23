@@ -75,7 +75,7 @@ const useUserProfile = ({ redirect }: UseProps) => {
                     billingAddress: responseUser.billingAddress ?? '',
                     phone: responseUser.phone ?? '',
                     aCoins: responseUser.aCoins ?? 0,
-                    orders: orderResponse,
+                    orders: orderResponse ?? [],
                 }));
                 // Guardar el usuario original
                 setOriginalUser({
