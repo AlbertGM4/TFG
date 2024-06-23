@@ -59,8 +59,11 @@ const useUserProfile = ({ redirect }: UseProps) => {
                 }
 
                 const responseUser = await fetchUser(decodedToken["unique_name"]);
-                const { fetchedOrders: orderResponse, fetchedOrderLines: orderLineResponse } = await fetchOrdersData(responseUser);
-                console.log("orderResponse: ", orderResponse)
+                var { fetchedOrders: orderResponse, fetchedOrderLines: orderLineResponse } = await fetchOrdersData();
+
+                orderResponse = orderResponse.filter(
+                    order => order.customerID === responseUser.userID
+                );
 
                 setUser({
                     profileImageRoute: responseUser.profileImageRoute || '', // Asegúrate de tener definida esta variable correctamente en tu código
@@ -84,7 +87,6 @@ const useUserProfile = ({ redirect }: UseProps) => {
                     orders: orderResponse || [],
                     payment: card,
                 });
-                console.log("user: ", user)
             } catch (error) {
                 console.error('Error fetching user data: ', error);
             }

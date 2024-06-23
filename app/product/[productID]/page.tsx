@@ -24,7 +24,6 @@ const ProductPage = ({ params }: { params: { productID: number } }) => {
         async function loadProduct() {
             try {
                 const productData = await fetchProduct(params.productID);
-                console.log("Products data: ", productData)
                 setProduct(productData);
             } catch (error) {
                 console.error('Error fetching products', error);

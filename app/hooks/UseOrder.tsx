@@ -93,10 +93,12 @@ const useOrder = ({ redirect }: UseProps) => {
             const decodedToken: any = jwtDecode(token);
 
             const userResponse = await fetchUser(decodedToken["unique_name"]);
-            const { fetchedOrders, fetchedOrderLines } = await fetchOrdersData(userResponse);
+            var { fetchedOrders, fetchedOrderLines } = await fetchOrdersData();
 
+            fetchedOrders = fetchedOrders.filter(
+                order => order.customerID === userResponse.userID
+            );
             console.log("fetchedOrders: ", fetchedOrders)
-            console.log("fetchedOrderLines: ", fetchedOrderLines)
 
             // Preparar un mapa para almacenar las líneas de órdenes agrupadas por OrderID
             const orderLinesMap: Map<number, OrderLine[]> = new Map();

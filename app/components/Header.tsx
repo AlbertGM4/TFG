@@ -19,6 +19,7 @@ import searchGif from '@/public/gifs/search.gif';
 import './Components.css';
 import { useAuth } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { searchProduct } from '@/app/services/DataASP';
 
 
 const Header = () => {
@@ -26,6 +27,7 @@ const Header = () => {
     const [isSignIn, setIsSignIn] = useState(true);
     const [showSearchField, setShowSearchField] = useState(false); // For search input display
     const [showCartList, setShowCartList] = useState(false); // For Cart display
+    const [searchTerm, setSearchTerm] = useState('');
     const { isLoggedIn } = useAuth();
     const router = useRouter();
 
@@ -55,6 +57,30 @@ const Header = () => {
         // Aplicar un fondo oscuro semi-transparente a la página
         document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
         document.body.style.overflow = 'hidden'; // Evitar el desplazamiento de la página cuando está oscurecida
+    };
+
+    const handleSearch = async () => {
+        // Realiza la petición a la API para obtener el productID basado en searchTerm
+        try {
+            const response = await searchProduct(searchTerm);
+            console.log("Response: ", response)
+
+            if (response.productID) {
+                // Redirige a la página del producto usando el productID
+                router.push(`/product/${response.productID}`);
+            } else {
+                // Manejo de caso cuando no se encuentra el producto
+                alert('Producto no encontrado');
+            }
+        } catch (error) {
+            console.error('Error al buscar el producto:', error);
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
     };
 
     const handleCloseSearch = () => {
@@ -88,8 +114,11 @@ const Header = () => {
                             <li className='inputHeader'>
                                 <input
                                     type="text"
-                                    placeholder="¿Que deseas buscar?"
+                                    placeholder="¿Qué deseas buscar?"
                                     className="border border-gray-300 p-2 rounded-md pl-2"
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </li>
                         </>

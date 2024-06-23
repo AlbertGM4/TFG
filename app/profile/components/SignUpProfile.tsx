@@ -23,7 +23,6 @@ const SignUpForm: React.FC<{ toggleForm: () => void }> = ({ toggleForm }) => {
         e.preventDefault();
         try {
             await handleRegister(username, password, email, address, billingAddress, phone);
-            // El mensaje de éxito se establece en el estado después de un inicio de sesión exitoso
         } catch (error) {
             // handle error
         }
@@ -71,7 +70,7 @@ const SignUpForm: React.FC<{ toggleForm: () => void }> = ({ toggleForm }) => {
                         <div className='mb-4'>
                             <input
                                 type="text"
-                                placeholder="Email"
+                                placeholder="Direccion"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
                                 className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring ${credentialError ? 'border-rose-600' : 'focus:border-blue-300'}`}
@@ -101,7 +100,7 @@ const SignUpForm: React.FC<{ toggleForm: () => void }> = ({ toggleForm }) => {
                         <div className='mb-6'>
                             <button type="submit"
                                 className='w-full bg-black text-white px-4 py-2 rounded-md hover:bg-slate-700 focus:outline-none focus:ring focus:border-blue-300'>
-                                Login
+                                Registrar
                             </button>
                         </div>
                     </form>

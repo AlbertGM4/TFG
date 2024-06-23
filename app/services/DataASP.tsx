@@ -34,14 +34,17 @@ export const fetchLogin = async (username: string, password: string) => {
 export const fetchRegister =
     async (username: string, password: string, email: string, address: string, billingAddress: string, phone: string) => {
         try {
-            const response = await api.post('Auth/register', {
+            const registerData = {
                 UserName: username,
+                UserEmail: email,
                 UserPassword: password,
-                userEmail: email,
-                userAddress: address,
-                userBillingAddress: billingAddress,
-                userPhone: phone,
-            });
+                Phone: phone,
+                Address: address,
+                BillingAddress: billingAddress,
+
+            };
+            console.log("registerData: ", registerData)
+            const response = await api.post('Auth/register', registerData);
 
             return response
 
@@ -87,7 +90,7 @@ export const addCategory = async (category: Category): Promise<Category> => {
 
 
 // PRODUCTOS
-// Función para obtener 1 producto desde el backend
+// Función para obtener 1 producto desde el backend (int)
 export const fetchProduct = async (productID: number): Promise<Product> => {
     try {
         const response = await api.get<Product>(`Product/getProduct/${productID}`); // Asegúrate de que este endpoint sea correcto
@@ -98,13 +101,24 @@ export const fetchProduct = async (productID: number): Promise<Product> => {
     }
 };
 
+// Función para obtener 1 producto desde el backend (string)
+export const searchProduct = async (productName: string): Promise<Product> => {
+    try {
+        const response = await api.get<Product>(`Product/searchProduct/${productName}`); // Asegúrate de que este endpoint sea correcto
+        console.log("res: ", response)
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching products', error);
+        return error.response.status;
+    }
+};
+
 // Función para obtener productos desde el backend
 export const fetchProducts = async (categoryName: any): Promise<Product[]> => {
     try {
         const responseCategories = (await api.get<Category[]>('Category/getCategories')).data;
         const categoryIds = responseCategories.filter(category => category.categoryName === categoryName)
             .map(category => category.categoryID);
-        console.log("Filtro categorias: ", categoryIds[0])
 
         if (categoryIds.length === 0) {
             throw new Error(`No se encontró ninguna categoría con el nombre ${categoryName}`);
@@ -187,7 +201,7 @@ export const updateUser = async (token: any, updatedInfo: any): Promise<User> =>
 // Order
 
 // Función para obtener una orden
-export const fetchOrdersData = async (customer: User): Promise<{ fetchedOrders: Order[], fetchedOrderLines: OrderLine[] }> => {
+export const fetchOrdersData = async (): Promise<{ fetchedOrders: Order[], fetchedOrderLines: OrderLine[] }> => {
     try {
         // Getting all customer Orders
         const orderResponse = (await api.get<Order[]>('Order/getOrders')).data;
