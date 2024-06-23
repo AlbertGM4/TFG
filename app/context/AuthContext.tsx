@@ -1,31 +1,44 @@
 // context/AuthContext.tsx
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+'use client'
 
-interface AuthContextType {
-    isLoggedIn: boolean;
-    login: () => void;
-    logout: () => void;
-}
+import React, { createContext, useContext, useState } from 'react';
+import Cookies from 'universal-cookie';
+
+import { AuthContextType, ProviderProps } from '@/app/models/ModelsASP';
+
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+const AuthProvider: React.FC<ProviderProps> = ({ children }) => {
+    const cookies = new Cookies();
+    const token = cookies.get('token');
 
-    const login = () => setIsLoggedIn(true);
-    const logout = () => setIsLoggedIn(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!token);
+
+
+    const login = async (token: string) => {
+        cookies.set('token', token, { path: '/' }); // Guardar token en cookie
+        setIsLoggedIn(true);
+    };
+
+    const logout = () => {
+        cookies.remove('token'); // Eliminar la cookie del token
+        setIsLoggedIn(false);
+    };
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+        <AuthContext.Provider value={{ isLoggedIn, cookies, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => {
+const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
+    if (!context) {
+        throw new Error('useAuth debe ser utilizado dentro de un AuthProvider');
     }
     return context;
 };
+
+export { AuthProvider, useAuth };

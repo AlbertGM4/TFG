@@ -1,4 +1,29 @@
 /* tejedor/app/components/Components.css */
 
 /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/* Header */
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semi-transparente */
+    z-index: 999; /* Asegura que esté por encima del resto del contenido */
+}
+
+.searchIcon {
+    list-style-type: none;
+    cursor: pointer;
+    position: relative; /* Asegura que el icono y el input estén posicionados relativamente */
+}
+
+.inputHeader {
+    align-items: center; /* Alinea verticalmente el ícono y el input */
+    z-index: 1000; /* Asegura que esté por encima del resto del contenido */
+}
+
+.inputHeader input{
+    width: 180%;
+}
