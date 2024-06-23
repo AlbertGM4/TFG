@@ -129,9 +129,9 @@ const useOrder = ({ redirect }: UseProps) => {
                 total: order.total,
                 orderLines: (orderLinesMap.get(order.orderID) || []).map(
                     orderLine => ({
-                        productName: productMap.get(orderLine.productID).productName,
+                        productName: productMap.get(orderLine.productID)?.productName || 'Producto no encontrado',
                         productQty: orderLine.qty,
-                        productPrice: productMap.get(orderLine.productID).productPrice,
+                        productPrice: productMap.get(orderLine.productID)?.productPrice || 0,
                         subTotal: orderLine.subTotal
                     }))
             }));
